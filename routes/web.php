@@ -14,15 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('integrations')->name('integrations.')->group(function () {
-    Route::get('widget', [PayController::class, 'widget'])
-        ->name('widget');
-    Route::get('standalone', [PayController::class, 'standalone'])
-        ->name('standalone');
+Route::prefix('widget')->name('widget.')->group(function () {
+    Route::get('/show', \App\Http\Controllers\Widget\ShowFormController::class)
+        ->name('show');
+    Route::post('/verify', \App\Http\Controllers\Widget\VerifyPaymentController::class)
+        ->name('verify');
 });
 
-Route::get('callback', [PayController::class, 'callback'])
-    ->name('callback');
-
-Route::post('verify', [PayController::class, 'verify'])
-    ->name('verify');
+Route::prefix('standalone')->name('standalone.')->group(function () {
+    Route::get('/show', \App\Http\Controllers\Standalone\ShowFormController::class)
+        ->name('show');
+    Route::get('/callback', \App\Http\Controllers\Standalone\CallbackController::class)
+        ->name('callback');
+});

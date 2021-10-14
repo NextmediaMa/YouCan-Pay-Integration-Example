@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use YouCan\Pay\YouCanPay;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(YouCanPay::class, function ($app) {
+            YouCanPay::setIsSandboxMode(true);
+
+            return YouCanPay::instance()->useKeys(config('ycpay.private_key'), config('ycpay.public_key'));
+        });
     }
 
     /**

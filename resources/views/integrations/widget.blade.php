@@ -31,7 +31,7 @@
 
         function successCallback(transactionId) {
             const form = document.createElement('form');
-            form.setAttribute('action', '{{ route('verify') }}');
+            form.setAttribute('action', '{{ route('widget.verify') }}');
             form.setAttribute('method', 'POST');
             form.hidden = true;
 
